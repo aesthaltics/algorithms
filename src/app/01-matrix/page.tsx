@@ -34,7 +34,7 @@ const Page = () => {
 				className="text-blue-600 underline text-2xl"
 				target="_blank"
 			>
-				01 Matrix
+				542: 01 Matrix
 			</a>
 			<p className="text-2xl">BFS</p>
 			<div className="flex flex-row justify-center items-center">

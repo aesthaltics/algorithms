@@ -11,31 +11,35 @@ const Page = () => {
 		added_nums: added_nums,
 	});
 	return (
-		<div className="flex flex-col w-screen h-screen items-center justify-center">
-			<div className="flex flex-col items-center justify-center">
-				<div className="flex flex-row">
-					{added_nums.map((num, index) => (
-						<div
-							key={index}
-							className={`h-5 w-5 ${
-								index === numToAdd
-									? "bg-green-500"
-									: "bg-gray-700"
-							}`}
-						>
-							<p>{num}</p>
-						</div>
-					))}
-				</div>
-				<button
-					className="px-4 py-2 rounded-md bg-blue-500"
-					onClick={addNum}
-				>
-					Add
-				</button>
-				<SubTreePresenter list={heap} root={0} />
-				<p className="text-5xl">Kth largest = {kthLargestNum}</p>
+		<div className="flex flex-col w-screen h-screen items-center justify-center gap-4">
+			<a
+				href="https://leetcode.com/problems/kth-largest-element-in-a-stream/"
+				className="text-blue-600 underline text-2xl"
+				target="_blank"
+			>
+				703: Kth Largest Element in a Stream
+			</a>
+			<p className="text-2xl">Min Heap</p>
+			<div className="flex flex-row">
+				{added_nums.map((num, index) => (
+					<div
+						key={index}
+						className={`flex items-center justify-center h-8 w-8 ${
+							index === numToAdd ? "bg-green-500" : "bg-gray-700"
+						}`}
+					>
+						<p>{num}</p>
+					</div>
+				))}
 			</div>
+			<button
+				className="px-4 py-2 rounded-md bg-blue-500"
+				onClick={addNum}
+			>
+				Add
+			</button>
+			<SubTreePresenter list={heap} root={0} />
+			<p className="text-5xl">Kth largest = {kthLargestNum}</p>
 		</div>
 	);
 };
@@ -49,14 +53,16 @@ export const SubTreePresenter = ({
 	root: number;
 }) => {
 	return (
-		<div className="flex flex-col text-center p-2 outline">
-			<div>{list[root]}</div>
+		<div className="flex flex-col text-center p-2">
+			<div className="rounded-full outline min-w-[25px]">
+				{list[root]}
+			</div>
 			<div className="flex flex-row">
-				{list[(root + 1) * 2] !== undefined && (
-					<SubTreePresenter list={list} root={(root + 1) * 2} />
-				)}
 				{list[(root + 1) * 2 - 1] !== undefined && (
 					<SubTreePresenter list={list} root={(root + 1) * 2 - 1} />
+				)}
+				{list[(root + 1) * 2] !== undefined && (
+					<SubTreePresenter list={list} root={(root + 1) * 2} />
 				)}
 			</div>
 		</div>
@@ -73,7 +79,7 @@ const useKthtLargest = ({
 	added_nums: number[];
 }) => {
 	const kthLargest = useRef(new KthLargest(k, nums));
-	const [numToAdd, setNumToAdd] = useState(0)
+	const [numToAdd, setNumToAdd] = useState(0);
 	const [heap, setHeap] = useState(kthLargest.current.minHeap.heap);
 	const [kthLargestNum, setKthLargestNum] = useState<number | undefined>();
 
@@ -83,7 +89,7 @@ const useKthtLargest = ({
 		}
 		setKthLargestNum(kthLargest.current.add(added_nums[numToAdd]));
 		setHeap(kthLargest.current.minHeap.heap);
-		setNumToAdd(numToAdd+1)
+		setNumToAdd(numToAdd + 1);
 	};
 
 	return { heap, kthLargestNum, addNum, numToAdd };
