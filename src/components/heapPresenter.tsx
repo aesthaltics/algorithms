@@ -1,13 +1,15 @@
 import React from "react";
 
 type HeapPresenterProps = {
-	list: number[];
+	list: React.JSX.Element[] | undefined;
 	root: number;
 };
 
 const HeapPresenter = ({ list, root }: HeapPresenterProps) => {
+
 	return (
-		<div className="flex flex-col text-center p-2">
+		(list !== undefined) && 
+			<div className="flex flex-col text-center p-2">
 			<div className="rounded-full outline min-w-[25px]">
 				{list[root]}
 			</div>

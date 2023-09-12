@@ -39,7 +39,7 @@ const Page = () => {
 			>
 				Add
 			</button>
-			<HeapPresenter list={heap} root={0} />
+			<HeapPresenter list={heap.map((num, index) => <p key={num.toString() + index.toString()}>{num}</p> )} root={0} />
 			<p className="text-5xl">Kth largest = {kthLargestNum}</p>
 		</div>
 	);
