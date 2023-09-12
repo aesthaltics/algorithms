@@ -1,3 +1,5 @@
+"use client"
+
 import React from "react";
 import { Heap, HeapType } from "../data-structures/Heap";
 
@@ -7,10 +9,12 @@ const Page = () => {
 			<div className="flex items-center justify-center">
 				{kClosest(
 					[
-						[1,0],
-						[0,1]
+						[6, 10],
+						[-3, 3],
+						[-2, 5],
+						[0, 2],
 					],
-					2
+					3
 				)}
 			</div>
 		</div>
@@ -36,7 +40,8 @@ const kClosest = (points: number[][], k: number): number[][] => {
 			}
 			return distance;
 		}),
-		HeapType.MAX_HEAP
+		HeapType.MAX_HEAP,
+		k
 	);
 
 	while (maxHeap.length() > k) {

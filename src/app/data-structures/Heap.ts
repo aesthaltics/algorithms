@@ -6,14 +6,39 @@ export enum HeapType {
 export class Heap {
 	heap: number[] = [];
 	heaptype: HeapType;
+	maxElements: number;
 
-	constructor(nums: number[], heapType: HeapType) {
+	constructor(
+		nums: number[],
+		heapType: HeapType,
+		maxElements: number = Infinity
+	) {
 		this.heaptype = heapType;
+		this.maxElements = maxElements;
 		nums.forEach((num) => this.insert(num));
 	}
 
 	insert(val: number) {
-		this.heap.push(val);
+		if (this.length() === this.maxElements) {
+			if (this.heaptype === HeapType.MAX_HEAP) {
+				if (this.peek() > val) {
+					this.heap.push(val);
+				} else {
+					return;
+				}
+			}
+			if (this.heaptype === HeapType.MIN_HEAP) {
+				if (this.peek() < val) {
+					this.heap.push(val);
+				} else {
+					return;
+				}
+			}
+		}else{
+
+			this.heap.push(val);
+		}
+
 		let nodeIndex = this.heap.length - 1;
 		let parentIndex = Math.floor((nodeIndex - 1) / 2);
 
@@ -35,6 +60,10 @@ export class Heap {
 			}
 			nodeIndex = parentIndex;
 			parentIndex = Math.floor((nodeIndex - 1) / 2);
+		}
+
+		while (this.length() > this.maxElements) {
+			this.remove();
 		}
 	}
 
@@ -108,10 +137,10 @@ export class Heap {
 		}
 		return returnNum;
 	}
-	length(){
-		return this.heap.length
+	length() {
+		return this.heap.length;
 	}
-	peek(){
-		return this.heap[0]
+	peek() {
+		return this.heap[0];
 	}
 }
