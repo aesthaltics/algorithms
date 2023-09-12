@@ -1,10 +1,17 @@
 import React from "react";
+import { Heap, HeapType } from "../data-structures/Heap";
 
 const Page = () => {
 	return (
 		<div className="flex flex-col w-screen h-screen items-center justify-center">
 			<div className="flex items-center justify-center">
-				Let&apos;s Go
+				{kClosest(
+					[
+						[1,0],
+						[0,1]
+					],
+					2
+				)}
 			</div>
 		</div>
 	);
@@ -16,7 +23,26 @@ const kClosest = (points: number[][], k: number): number[][] => {
 	const euclideanDistanceFromOrigin = (a: number, b: number) => {
 		return Math.sqrt(a ** 2 + b ** 2);
 	};
-	return [];
+	const map: {
+		[num: number]: number[][];
+	} = {};
+	const maxHeap = new Heap(
+		points.map((point) => {
+			const distance = euclideanDistanceFromOrigin(point[0], point[1]);
+			if (map[distance] === undefined) {
+				map[distance] = [point];
+			} else {
+				map[distance].push(point);
+			}
+			return distance;
+		}),
+		HeapType.MAX_HEAP
+	);
+
+	while (maxHeap.length() > k) {
+		maxHeap.remove();
+	}
+	return maxHeap.heap.map((distance) => map[distance].pop() ?? [-1000]);
 };
 
 // Given an array of points where points[i] = [xi, yi] represents a point on the X-Y plane and an integer k, return the k closest points to the origin (0, 0).
