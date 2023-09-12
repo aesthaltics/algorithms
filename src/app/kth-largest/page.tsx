@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { Heap, HeapType } from "../data-structures/Heap";
+import { Heap, HeapType } from "../../data-structures/Heap";
 
 const Page = () => {
 	const added_nums = [3, 5, 10, 9, 4];
