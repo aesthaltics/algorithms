@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { Heap, HeapType } from "../../data-structures/Heap";
+import { Heap, HeapType } from "@/data-structures/Heap";
+import HeapPresenter from "@/components/heapPresenter";
 
 const Page = () => {
 	const added_nums = [3, 5, 10, 9, 4];
@@ -38,36 +39,12 @@ const Page = () => {
 			>
 				Add
 			</button>
-			<SubTreePresenter list={heap} root={0} />
+			<HeapPresenter list={heap} root={0} />
 			<p className="text-5xl">Kth largest = {kthLargestNum}</p>
 		</div>
 	);
 };
 export default Page;
-
-export const SubTreePresenter = ({
-	list,
-	root,
-}: {
-	list: number[];
-	root: number;
-}) => {
-	return (
-		<div className="flex flex-col text-center p-2">
-			<div className="rounded-full outline min-w-[25px]">
-				{list[root]}
-			</div>
-			<div className="flex flex-row">
-				{list[(root + 1) * 2 - 1] !== undefined && (
-					<SubTreePresenter list={list} root={(root + 1) * 2 - 1} />
-				)}
-				{list[(root + 1) * 2] !== undefined && (
-					<SubTreePresenter list={list} root={(root + 1) * 2} />
-				)}
-			</div>
-		</div>
-	);
-};
 
 const useKthtLargest = ({
 	k,
