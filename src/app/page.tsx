@@ -15,9 +15,12 @@ export default function Home() {
 				</a>
 				<a
 					href="./longest-substr-no-repeat-chars"
-					className="text-blue-600 underline"
+					className="underline text-transparent bg-clip-text bg-gradient-to-r from-indigo-700 via-pink-600 to-red-500 w-fit"
 				>
 					Longest Substring Without Repeating Characters
+				</a>
+				<a href="./3-sum" className="text-blue-600 underline">
+					3 Sum
 				</a>
 			</div>
 		</main>
