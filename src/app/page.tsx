@@ -7,11 +7,17 @@ export default function Home() {
 				<a href="./01-matrix" className="text-blue-600 underline">
 					01Matrix
 				</a>
+				<a href="./kth-largest" className="text-blue-600 underline">
+					Kth Largest in a Stream
+				</a>
 				<a href="./k-closest" className="text-blue-600 underline">
 					K Closest Points to Origin
 				</a>
-				<a href="./kth-largest" className="text-blue-600 underline">
-					Kth Largest in a Stream
+				<a
+					href="./longest-substr-no-repeat-chars"
+					className="text-blue-600 underline"
+				>
+					Longest Substring Without Repeating Characters
 				</a>
 			</div>
 		</main>
