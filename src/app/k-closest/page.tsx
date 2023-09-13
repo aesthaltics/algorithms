@@ -210,7 +210,6 @@ const useKClosest = ({ points, k }: { points: number[][]; k: number }) => {
 
 	const generateNextStep = () => {
 		const state = generator.current.next();
-		console.log(state);
 		if (state.value?.maxHeap !== undefined) {
 			setHeap(
 				state.value.maxHeap.map((obj, index) => {
