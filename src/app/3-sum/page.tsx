@@ -21,17 +21,18 @@ export default page;
 function threeSum(nums: number[]): number[][] {
 	const returnArr: number[][] = [];
 
-	while(nums.length > 2){
-		let num = nums.pop()
-		if (num === undefined){
-			continue
+	while (nums.length > 2) {
+		let num = nums.pop();
+		console.log(num)
+		if (num === undefined) {
+			continue;
 		}
 		const solutions = twoSum(nums, -num);
-		solutions.forEach((solution) =>{
+		solutions.forEach((solution) => {
 			solution.push(num!);
-			returnArr.push(solution)
-		})
-		nums = nums.filter((number) => num !== number)
+			returnArr.push(solution);
+		});
+		nums = nums.filter((number) => num !== number);
 	}
 
 	return returnArr;
@@ -39,31 +40,19 @@ function threeSum(nums: number[]): number[][] {
 
 function twoSum(nums: number[], target: number): number[][] {
 	const retrurnArr: number[][] = [];
-	const differenceMap: {
-		[difference: number]: number | undefined;
-	} = {};
+	const differenceSet = new Set()
+	const usedNums = new Set();
 	nums.forEach((num) => {
-		if (differenceMap[target - num] !== undefined) {
-			differenceMap[target - num] = differenceMap[target - num]! + 1;
-		}else{
-			differenceMap[target - num] = 1
-		}
-	});
-
-	nums.forEach((uniqueNum) => {
-		if (differenceMap[uniqueNum] === undefined) {
+		if (usedNums.has(num)) {
 			return;
 		}
-		if (uniqueNum*2 !== target){
-			retrurnArr.push([uniqueNum, target - uniqueNum]);
-			differenceMap[uniqueNum] = undefined;
-			differenceMap[target - uniqueNum] = undefined;
+		if (differenceSet.has(num)) {
+			retrurnArr.push([num, target - num]);
+			usedNums.add(num);
+			usedNums.add(target - num);
+			return;
 		}
-		if (differenceMap[uniqueNum]! > 1) {
-			retrurnArr.push([uniqueNum, uniqueNum]);
-			differenceMap[uniqueNum] = undefined;
-			return
-		}
+		differenceSet.add(target - num)
 	});
 
 	return retrurnArr;
