@@ -7,7 +7,9 @@ const page = () => {
 		12, 47, 61, 26, 1, 13, 29, 55, -82, 76, 26, 15, -29, 36, -29, 10, -70,
 		69, 17, 49,
 	];
-	console.log(threeSum(numsToSum).length);
+	// console.log(threeSum(numsToSum));
+	console.log(threeSum([-1, 0, 1, 2, -1, -4]));
+
 	return (
 		<div className="flex flex-col w-screen h-screen items-center justify-center gap-5">
 			<div className="flex items-center justify-center">
@@ -25,7 +27,14 @@ export default page;
 // Notice that the solution set must not contain duplicate triplets.
 
 function threeSum(nums: number[]): number[][] {
-	const sortedNums = nums.sort((a , b) => a - b)
+	const numberOfPositiveNumbers = nums.reduce((acc, cur) => {
+		if (cur > 0) {
+			return acc + 1;
+		}
+		return acc;
+	}, 0);
+	const reversed = numberOfPositiveNumbers < nums.length / 2;
+	const sortedNums = nums.sort((a, b) => (reversed ? b - a : a - b));
 
 	const sumArr: number[][] = [];
 
@@ -36,9 +45,6 @@ function threeSum(nums: number[]): number[][] {
 		) {
 			lowIndexPointer++;
 		}
-		console.log(
-			"done in increment function: " + sortedNums[lowIndexPointer]
-		);
 		return lowIndexPointer;
 	};
 
@@ -49,9 +55,6 @@ function threeSum(nums: number[]): number[][] {
 		) {
 			highIndexPointer--;
 		}
-		console.log(
-			"done in dercement function: " + sortedNums[highIndexPointer]
-		);
 
 		return highIndexPointer;
 	};
@@ -60,7 +63,10 @@ function threeSum(nums: number[]): number[][] {
 		baseNumberIndex < sortedNums.length;
 		baseNumberIndex++
 	) {
-		if (sortedNums[baseNumberIndex] > 0) {
+		if (reversed && sortedNums[baseNumberIndex] < 0) {
+			break;
+		}
+		if (!reversed && sortedNums[baseNumberIndex] > 0) {
 			break;
 		}
 		let [lowIndexPointer, highIndexPointer] = [
@@ -72,12 +78,11 @@ function threeSum(nums: number[]): number[][] {
 				sortedNums[baseNumberIndex] +
 				sortedNums[lowIndexPointer] +
 				sortedNums[highIndexPointer];
-			if (sum < 0) {
+			if (reversed ? sum >0 : sum < 0) {
 				lowIndexPointer = incrementLowIndexPointer(lowIndexPointer);
-				console.log("value in main loop: " + lowIndexPointer);
 				continue;
 			}
-			if (sum > 0) {
+			if (reversed ? sum < 0 : sum > 0) {
 				highIndexPointer = decrementHighIndexPointer(highIndexPointer);
 				continue;
 			}
@@ -89,7 +94,6 @@ function threeSum(nums: number[]): number[][] {
 			]);
 			lowIndexPointer = incrementLowIndexPointer(lowIndexPointer);
 			highIndexPointer = decrementHighIndexPointer(highIndexPointer);
-			console.log(sumArr);
 		}
 		while (
 			sortedNums[baseNumberIndex] === sortedNums[baseNumberIndex + 1]
@@ -98,7 +102,7 @@ function threeSum(nums: number[]): number[][] {
 		}
 	}
 	return sumArr;
-};
+}
 // [
 // 	-82, -70, -66, -49, -43, -29, -29, -14, -11, -6, -3, -3, 1, 2, 10, 12, 13,
 // 	15, 15, 17, 21, 26, 26, 28, 28, 29, 31, 33, 34, 36, 43, 46, 46, 47, 48, 49,

@@ -92,7 +92,7 @@ type CellProps = {
 	isActive: boolean;
 };
 
-export const Cell = ({ number, isActive }: CellProps) => {
+const Cell = ({ number, isActive }: CellProps) => {
 	return (
 		<div
 			className={`flex items-center justify-center border w-8 h-8 ${
@@ -108,7 +108,7 @@ type MatrixProps = {
 	matrix: React.JSX.Element[][];
 };
 
-export const Matrix = ({ matrix }: MatrixProps) => {
+const Matrix = ({ matrix }: MatrixProps) => {
 	return (
 		<div>
 			{matrix.map((row, rowIndex) => {
